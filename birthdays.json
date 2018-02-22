@@ -1,0 +1,58 @@
+{
+	"listName": "Friends Birthday List",
+	"friends": [
+	{
+		"name": "Ola",
+		"birthday": "1/24",
+		"wishlist": [
+			"cupcakes",
+			"movies",
+			"books"
+		]
+	},
+	{
+		"name": "Beau",
+		"birthday": "9/23",
+		"wishlist": [
+			"beer",
+			"MTG cards",
+			"books"
+		]
+	},
+	{
+		"name": "Katie",
+		"birthday": "8/1",
+		"wishlist": [
+			"lotion",
+			"perfume",
+			"make-up"
+		]
+	},
+	{
+		"name": "Robert",
+		"birthday": "11/23",
+		"wishlist": [
+			"MTG cards",
+			"VR goggles",
+			"Google Play cards"
+		]
+	},
+	{
+		"name": "Alex",
+		"birthday": "6/24",
+		"wishlist": [
+			"SeaWorld tickets",
+			"Harry Potter wand",
+			"perfume"
+		]
+	},
+	{
+		"name": "Sam",
+		"birthday": "12/19"
+		"wishlist": [
+			"flat iron",
+			"soccer ball",
+			"soccer jersey"
+		]
+	}]
+}
