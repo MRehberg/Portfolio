@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>JavaScript Coding Portfolio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	* { padding: 0; margin: 0; }
+	canvas { background: #eee; display: block; margin: 0 auto;}
+  </style>
+  <script type="text/javascript" src="externalJS.js" ></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="breakout.html">Breakout</a></li>
+        <li><a href="learning.html">Learning</a></li>
+      </ul>
+      <!-- Login option commented out because unnecessary for time being, may use later if needed.
+	  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul> 
+	  -->
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="breakout.html">Breakout</a></p>
+      <p><a href="learning.html">Learning</a></p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+		<h1>Learning JavaScript</h1>
+	
+	<div class="table-responsive">
+	  <table class="table table-striped table-bordered">
+		<caption><h3>JavaScript Definitions<h3></caption>
+		<thead>
+			<tr>
+				<th>Term</th>
+				<th>Definition</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Conditional</td>
+				<td>
+					<ul>
+						<li>A statement that allows the code to make a choice between one or more options and then execute the code associated with that choice to get the desired outcome</li>
+						<li>Generally used when there are only a few choices to select from</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Constructor Function</td>
+				<td>
+					<ul>
+						<li>A function that defines objects and their features</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Event</td>
+				<td>
+					<ul>
+						<li>An action or occurrence that happens within the program</li>
+						<li>For example: a user pressing a key, a form being submitted, a mouse click, etc.</li>
+						<li><a href="https://developer.mozilla.org/en-US/docs/Web/Events">List of Events</a></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Event Bubbling and Capture</td>
+				<td>
+					<ul>
+						<li>Two mechanisms that describe what happens when two event handlers of the same event type are activated on one element</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Event Listener</td>
+				<td>
+					<ul>
+						<li>A function that attaches an event handler to an element</li>
+						<li>DOM Level 2 Events</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Event Object</td>
+				<td>
+					<ul>
+						<li>A parameter that is automatically passed to an event handler to provide extra information or features</li>
+						<li>The target property of an event object will be a reference to the element that the event occurred on</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Function</td>
+				<td>
+					<ul>
+						<li>Stores code that performs a task within an object</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>JSON</td>
+				<td>
+					<ul>
+						<li>JavaScript Object Notation</li>
+						<li>A text-based data format following JavaScript object syntax used for storing and exchanging data</li>
+						<li>Exists as a string and used to transmit data across a network</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Object</td>
+				<td>
+					<ul>
+						<li>A collection of related properties and methods</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Parameters</td>
+				<td>
+					<ul>
+						<li>Values included in a function's parentheses to be passed into the function</li>
+						<li>Multiple values should be separated by commas</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Prototypes</td>
+				<td>
+					<ul>
+						<li>A template object in which methods and properties are defined and made available to other objects</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Return Values</td>
+				<td>
+					<ul>
+						<li>Values returned by a function after the function has finished executing</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Scope</td>
+				<td>
+					<ul>
+						<li>Determines the accessibility of variables</li>
+						<li>Local Scope - variables can only be accessed within that function</li>
+						<li>Global Scope - variables can be accessed by all scripts and functions on that page</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Switch Statement</td>
+				<td>
+					<ul>
+						<li>Evaluates an expression then searches multiple blocks of code to find a match and executes only that block</li>
+						<li>Once execution reaches the <b>break</b> keyword, the switch block ends</li>
+						<li>If no matches are found, a default block will be executed</li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	  </table>
+	</div>
+	<div class="container-fluid col-sm-12 ">
+		<h3>JavaScript Notes</h3> <!--move this to the Extra Space wells on the side if there aren't many-->
+		<ul>
+			<li>The error "ReferenceError: [  ] is not defined." is a fairly common error. Be sure to check the variable listed in "[  ]" to see if it is in the correct scope. Does the variable need to be local or global?</li>
+			<li>Always be sure to iterate the initializer so it will eventually reach the exit condition, otherwise it will become an infinite loop</li>
+			<li>If you don't want to wait for a loop to finish running to meet the exit condition, you can create a nested if...else conditional within the loop that includes a break statement causing the conditional to end.</li>
+			<li>Don't use event handlers inline with HTML, because it is easier to handle and parse if the JavaScript event handler is located with other JavaScript code. Using an Event Listener will allow you to keep the JavaScript separated from the HTML markup.</li>
+		</ul>
+	</div>  
+      <hr>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>Extra Space</p>
+		<script>
+			var person = {
+				name: ['Jane', 'Doe'],
+				age: 32,
+				gender: 'female',
+				interests: ['baking', 'hiking'],
+				bio: function() {
+					alert(this.name[0] + ' ' + this.name[1] + ' ' + 'is ' + this.age + ' years old. She likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+				},
+				greeting: function() {
+					alert('Hi! I\'m ' + this.name[0] + '.');
+				}
+			};
+		</script>
+      </div>
+      <div class="well">
+        <p>Extra Space</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Copyright 2018 - Coding Practice</p>
+</footer>
+
+</body>
+</html>
