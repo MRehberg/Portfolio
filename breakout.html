@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>JavaScript Breakout</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	* { padding: 0; margin: 0; }
+	canvas { background: #eee; display: block; margin: 0 auto;}
+  </style>
+  <script type="text/javascript" src="externalJS.js" ></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="breakout.html">Breakout</a></li>
+        <li><a href="learning.html">Learning</a></li>
+      </ul>
+      <!-- Login option commented out because unnecessary for time being, may use later if needed.
+	  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul> 
+	  -->
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="breakout.html">Breakout</a></p>
+      <p><a href="learning.html">Learning</a></p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1>JavaScript Breakout</h1>
+	  
+		<!-- Create the rectangle canvas for the game -->
+		<canvas id="myCanvas" width="480" height="320"></canvas>
+		
+		<script>
+			var canvas = document.getElementById("myCanvas");	// reference to the canvas element
+			var ctx = canvas.getContext("2d");		// variable that stores the 2d rendering context - tool that paints on the canvas
+			var x = canvas.width/2;
+			var y = canvas.height-30;	//x and y define a starting point for the ball
+			var dx = 2;
+			var dy = -2;	//dx and dy make it appear that the ball is moving
+			var ballRadius = 10;
+			var paddleHeight = 10;	//defines paddle measurements
+			var paddleWidth = 75;
+			var paddleX = (canvas.width-paddleWidth)/2;	//defines paddle starting point on x-axis
+			var rightPressed = false;
+			var leftPressed = false;
+			var brickRowCount = 3;
+			var brickColumnCount = 5;
+			var brickWidth = 75;
+			var brickHeight = 20;
+			var brickPadding = 10;
+			var brickOffsetTop = 30;
+			var brickOffsetLeft = 30;
+			var bricks = [];
+			var score = 0;
+			var lives = 3;
+			
+			for(c=0; c<brickColumnCount; c++) {		//two-dimensional array created to create/hold columns/rows of bricks
+				bricks[c] = [];
+				for(r=0; r<brickRowCount; r++) {
+					bricks[c][r] = { x: 0, y: 0, status: 1 };	//object that paints bricks on canvas
+																//status of 1 = paints brick, status of 0 = brick disappears
+				}
+			}
+			
+			function drawBall() {
+				ctx.beginPath();
+				ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+				ctx.fillStyle = "#0095DD";
+				ctx.fill();
+				ctx.closePath();
+			}
+			
+			function drawPaddle() {
+				ctx.beginPath();
+				ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+				ctx.fillStyle = "#0095DD";
+				ctx.fill();
+				ctx.closePath();
+			}
+			
+			function drawBricks() {
+				for(c=0; c<brickColumnCount; c++) {
+					for(r=0; r<brickRowCount; r++) {
+						if(bricks[c][r].status == 1) {	//condition to draw bricks only if status is 1
+							var brickX = (c*(brickWidth + brickPadding)) + brickOffsetLeft;	//finds column location to add a brick to
+							var brickY = (r*(brickHeight + brickPadding)) + brickOffsetTop;	//finds row location to add a brick to
+							bricks[c][r].x = brickX;	//assigns column location to brickX to draw brick
+							bricks[c][r].y = brickY;	//assigns row location to brickY to draw brick
+							ctx.beginPath();
+							ctx.rect(brickX, brickY, brickWidth, brickHeight);	//draws bricks according to column/row for brickX, brickY
+							ctx.fillStyle = "#0095DD";
+							ctx.fill();
+							ctx.closePath();
+						}
+					}
+				}
+			}
+			
+			function draw() {
+				//drawing code
+				
+				//draws the ball on the canvas
+				ctx.clearRect(0, 0, canvas.width, canvas.height);	//clears canvas on each frame
+				drawBricks();	//calls function to draw the bricks on the canvas
+				drawBall();		//calls function to draw the ball on the canvas
+				drawPaddle();	//calls function to draw the paddle on the canvas
+				drawScore();	//calls function to update the score on the canvas
+				addLives();		//calls function to add lives to the canvas
+				collisionDetection();	//calls function to determine if ball collides with a brick and makes it disappear if hit
+				x += dx;	//update ball position on each frame - width
+				y += dy;	//update ball position on each frame - height
+				
+				//bounce ball off the walls
+				if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+					dx = -dx;	//controls bouncing off left and right
+				}
+
+				if(y + dy < ballRadius) {
+					dy = -dy;	//controls bouncing off top and bottom
+				}	
+				else if(y + dy > canvas.height-ballRadius) {
+					if(x > paddleX && x < paddleX + paddleWidth) {
+						dy = -dy;	//creates collision detection with paddle on the canvas, so game won't end if ball hits paddle
+					}
+					else {
+						lives--;	//subtracts a life when ball hits bottom of canvas
+						if(!lives) {
+							alert("GAME OVER!");	//displays a game over alert and reloads the page
+							document.location.reload();
+						}
+						else {			//resets position of ball and paddle after ball hits bottom, but there are still lives left
+							x = canvas.width/2;
+							y = canvas.height-30;
+							dx = 2;
+							dy = -2;
+							paddleX = (canvas.width-paddleWidth)/2;
+						}
+					}
+				}
+				
+				//move the paddle each time a frame is rendered by setting position of x-axis
+				//the paddle will move between 0 on left and the canvas.width-paddleWidth on the right
+				if (rightPressed && paddleX < canvas.width-paddleWidth) {
+					paddleX += 7;
+				}
+				else if (leftPressed && paddleX > 0) {
+					paddleX -= 7;
+				}
+				
+				requestAnimationFrame(draw);	//improves game rendering by creating a loop for the draw function.
+			}
+			
+			document.addEventListener("keydown", keyDownHandler, false); 	//triggers keyDownHandler event
+			document.addEventListener("keyup", keyUpHandler, false);		//triggers keyUpHandler event
+			document.addEventListener("mousemove", mouseMoveHandler, false); //triggers mouseMoveHandler event
+			
+			//function to determine whether a key is being pressed down
+			//left arrow = 37, right arrow = 39
+			function keyDownHandler(e) {
+				if (e.keyCode == 39) {
+					rightPressed = true;
+				}
+				else if (e.keyCode == 37) {
+					leftPressed = true;
+				}
+			}
+			
+			//function to determine whether the pressed key has been released
+			function keyUpHandler(e) {
+				if (e.keyCode == 39) {
+					rightPressed = false;
+				}
+				else if (e.keyCode == 37) {
+					leftPressed = false;
+				}
+			}
+			
+			//function to determine whether the mouse has been clicked to move paddle 
+			function mouseMoveHandler(e) {
+				var relativeX = e.clientX - canvas.offsetLeft;	/*	- finds horizontal mouse position and assigns to relativeX variable
+																*	- e.clientX is the horizontal mouse position in the viewport
+																*	- canvas.offsetLeft is distance between the left edge of canvas and    *	 left edge of the viewport
+																*/
+				if (relativeX > 0 && relativeX < canvas.width) {
+					paddleX = relativeX - paddleWidth/2;
+				}
+			}
+			
+			//function to determine whether the ball has collided with the middle of a brick
+			function collisionDetection() {
+				for(c=0; c<brickColumnCount; c++) {
+					for (r=0; r<brickRowCount; r++) {
+						var b = bricks[c][r];
+						if(b.status == 1) {		//checks to see if brick is active; status = 1
+							if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+								dy = -dy;
+								b.status = 0;	//if collision occurs, status is set to 0 to make brick disappear
+								score++;	//increments score if ball collides with a brick
+								if (score == brickRowCount*brickColumnCount) {
+									alert("YOU WIN! CONGRATULATIONS!");	//displays winning message when all bricks are destroyed
+									document.location.reload();			//resets the page
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			//function to add a score board
+			function drawScore() {
+				ctx.font = "16px Arial";	//set font size and style
+				ctx.fillStyle = "#0095DD";	//set font color
+				ctx.fillText("Score: " +score, 8, 20);	//set placement of score text on canvas
+			}
+			
+			//function to add life tracking to the canvas
+			function addLives() {
+				ctx.font = "16px Arial";
+				ctx.fillStyle = "#0095DD";
+				ctx.fillText("Lives: " + lives, canvas.width-65, 20);
+			}
+			
+			draw();	//executes the draw function, allows the browser to have control of the frame rate
+		</script>
+	  
+      <hr>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>Extra Space</p>
+		<button id="myBtn">Click me</button>
+		
+		<script>
+			document.getElementById("myBtn").addEventListener("click", function(){alert("Stop pushing my buttons!"); });
+		</script>
+      </div>
+      <div class="well">
+        <p>Extra Space</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Copyright 2018 - Coding Practice</p>
+</footer>
+
+</body>
+</html>
